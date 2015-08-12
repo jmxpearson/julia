@@ -21,8 +21,7 @@ function rst{l}(io::IO, header::Header{l})
 end
 
 function rst(io::IO, code::Code)
-    println(io, "::")
-    println(io)
+    println(io, ".. code-block:: julia")
     for l in lines(code.code)
         println(io, "    ", l)
     end
