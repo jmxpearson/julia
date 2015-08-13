@@ -3211,3 +3211,18 @@ end
 # issue #12551 (make sure these don't throw in inference)
 Base.return_types(unsafe_load, (Ptr{nothing},))
 Base.return_types(getindex, (Vector{nothing},))
+
+# issue #12612 (handle the case when `call` is not defined)
+Main.eval(:(type Foo12612 end))
+
+baremodule A12612
+import Main: Foo12612
+f1() = Foo12612()
+f2() = Main.Foo12612()
+end
+
+## Don't panic in type inference if call is not defined
+code_typed(A12612.f1, Tuple{})
+code_typed(A12612.f2, Tuple{})
+@test_throws ErrorException A12612.f1()
+@test_throws ErrorException A12612.f2()
