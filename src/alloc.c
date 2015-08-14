@@ -39,7 +39,6 @@ jl_datatype_t *jl_utf8_string_type;
 jl_datatype_t *jl_expr_type;
 jl_datatype_t *jl_symbolnode_type;
 jl_datatype_t *jl_globalref_type;
-jl_datatype_t *jl_linenumbernode_type;
 jl_datatype_t *jl_labelnode_type;
 jl_datatype_t *jl_gotonode_type;
 jl_datatype_t *jl_quotenode_type;

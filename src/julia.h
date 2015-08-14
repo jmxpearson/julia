@@ -435,7 +435,6 @@ extern DLLEXPORT jl_value_t *jl_array_symbol_type;
 extern DLLEXPORT jl_datatype_t *jl_expr_type;
 extern DLLEXPORT jl_datatype_t *jl_symbolnode_type;
 extern DLLEXPORT jl_datatype_t *jl_globalref_type;
-extern DLLEXPORT jl_datatype_t *jl_linenumbernode_type;
 extern DLLEXPORT jl_datatype_t *jl_labelnode_type;
 extern DLLEXPORT jl_datatype_t *jl_gotonode_type;
 extern DLLEXPORT jl_datatype_t *jl_quotenode_type;
@@ -665,7 +664,6 @@ STATIC_INLINE jl_value_t *jl_cellset(void *a, size_t i, void *x)
 
 #define jl_symbolnode_sym(s) ((jl_sym_t*)jl_fieldref(s,0))
 #define jl_symbolnode_type(s) (jl_fieldref(s,1))
-#define jl_linenode_line(x) (((ptrint_t*)x)[0])
 #define jl_labelnode_label(x) (((ptrint_t*)x)[0])
 #define jl_gotonode_label(x) (((ptrint_t*)x)[0])
 #define jl_globalref_mod(s) ((jl_module_t*)jl_fieldref(s,0))
@@ -735,7 +733,6 @@ STATIC_INLINE jl_value_t *jl_cellset(void *a, size_t i, void *x)
 #define jl_is_quotenode(v)   jl_typeis(v,jl_quotenode_type)
 #define jl_is_newvarnode(v)  jl_typeis(v,jl_newvarnode_type)
 #define jl_is_topnode(v)     jl_typeis(v,jl_topnode_type)
-#define jl_is_linenode(v)    jl_typeis(v,jl_linenumbernode_type)
 #define jl_is_lambda_info(v) jl_typeis(v,jl_lambda_info_type)
 #define jl_is_module(v)      jl_typeis(v,jl_module_type)
 #define jl_is_mtable(v)      jl_typeis(v,jl_methtable_type)

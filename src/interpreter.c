@@ -157,9 +157,6 @@ static jl_value_t *eval(jl_value_t *e, jl_value_t **locals, size_t nl, size_t ng
             }
             return (jl_value_t*)jl_new_closure(NULL, (jl_value_t*)jl_emptysvec, li);
         }
-        if (jl_is_linenode(e)) {
-            jl_lineno = jl_linenode_line(e);
-        }
         if (jl_is_newvarnode(e)) {
             jl_value_t *var = jl_fieldref(e,0);
             assert(!jl_is_gensym(var));

@@ -17,7 +17,7 @@ const TAGS = Any[
     Tuple, Array, Expr,
     #LongSymbol, LongTuple, LongExpr,
     Symbol, Tuple, Expr,  # dummy entries, intentionally shadowed by earlier ones
-    LineNumberNode, SymbolNode, LabelNode, GotoNode,
+    SymbolNode, LabelNode, GotoNode,
     QuoteNode, TopNode, TypeVar, Box, LambdaStaticData,
     Module, #=UndefRefTag=#Symbol, Task, ASCIIString, UTF8String,
     UTF16String, UTF32String, Float16,

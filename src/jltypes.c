@@ -3343,11 +3343,6 @@ void jl_init_types(void)
                                  jl_any_type),
                         0, 1, 3);
 
-    jl_linenumbernode_type =
-        jl_new_datatype(jl_symbol("LineNumberNode"), jl_any_type, jl_emptysvec,
-                        jl_svec(1, jl_symbol("line")),
-                        jl_svec(1, jl_long_type), 0, 0, 1);
-
     jl_labelnode_type =
         jl_new_datatype(jl_symbol("LabelNode"), jl_any_type, jl_emptysvec,
                         jl_svec(1, jl_symbol("label")),
@@ -3481,7 +3476,6 @@ void jl_init_types(void)
     jl_compute_field_offsets(jl_method_type);
     jl_compute_field_offsets(jl_methtable_type);
     jl_compute_field_offsets(jl_expr_type);
-    jl_compute_field_offsets(jl_linenumbernode_type);
     jl_compute_field_offsets(jl_labelnode_type);
     jl_compute_field_offsets(jl_gotonode_type);
     jl_compute_field_offsets(jl_quotenode_type);

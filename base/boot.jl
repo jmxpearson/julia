@@ -86,10 +86,6 @@
 #    typ::Any
 #end
 
-#immutable LineNumberNode
-#    line::Int
-#end
-
 #immutable LabelNode
 #    label::Int
 #end
@@ -143,7 +139,7 @@ export
     InterruptException, OutOfMemoryError, ReadOnlyMemoryError, OverflowError,
     StackOverflowError, SegmentationFault, UndefRefError, UndefVarError,
     # AST representation
-    Expr, GotoNode, LabelNode, LineNumberNode, QuoteNode, SymbolNode, TopNode,
+    Expr, GotoNode, LabelNode, QuoteNode, SymbolNode, TopNode,
     GlobalRef, NewvarNode, GenSym,
     # object model functions
     fieldtype, getfield, setfield!, nfields, throw, tuple, is, ===, isdefined,
@@ -279,7 +275,6 @@ TypeConstructor(p::ANY, t::ANY) = ccall(:jl_new_type_constructor, Any, (Any, Any
 Expr(args::ANY...) = _expr(args...)
 
 _new(typ::Symbol, argty::Symbol) = eval(:(Core.call(::Type{$typ}, n::$argty) = $(Expr(:new, typ, :n))))
-_new(:LineNumberNode, :Int)
 _new(:LabelNode, :Int)
 _new(:GotoNode, :Int)
 _new(:TopNode, :Symbol)

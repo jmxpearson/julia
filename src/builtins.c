@@ -1269,7 +1269,6 @@ void jl_init_primitives(void)
     add_builtin("Array", (jl_value_t*)jl_array_type);
 
     add_builtin("Expr", (jl_value_t*)jl_expr_type);
-    add_builtin("LineNumberNode", (jl_value_t*)jl_linenumbernode_type);
     add_builtin("LabelNode", (jl_value_t*)jl_labelnode_type);
     add_builtin("GotoNode", (jl_value_t*)jl_gotonode_type);
     add_builtin("QuoteNode", (jl_value_t*)jl_quotenode_type);
@@ -1487,9 +1486,6 @@ size_t jl_static_show_x(JL_STREAM *out, jl_value_t *v, int depth)
         n += jl_printf(out, "top(");
         n += jl_static_show_x(out, jl_fieldref(v,0), depth);
         n += jl_printf(out, ")");
-    }
-    else if (jl_is_linenode(v)) {
-        n += jl_printf(out, "# line %" PRIuPTR, jl_linenode_line(v));
     }
     else if (jl_is_expr(v)) {
         jl_expr_t *e = (jl_expr_t*)v;

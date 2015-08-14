@@ -3106,11 +3106,6 @@ static Value *emit_expr(jl_value_t *expr, jl_codectx_t *ctx, bool isboxed, bool 
         builder.SetInsertPoint(bb);
         return NULL;
     }
-    if (jl_is_linenode(expr)) {
-        if (valuepos)
-            jl_error("Linenode in value position");
-        return NULL;
-    }
     if (jl_is_quotenode(expr)) {
         jl_value_t *jv = jl_fieldref(expr,0);
         if (jl_is_bitstype(jl_typeof(jv))) {
@@ -4017,10 +4012,7 @@ static Function *emit_function(jl_lambda_info_t *lam)
     char *dbgFuncName = lam->name->name;
     int lno = -1;
     // look for initial (line num filename) node
-    if (jl_is_linenode(stmt)) {
-        lno = jl_linenode_line(stmt);
-    }
-    else if (jl_is_expr(stmt) && ((jl_expr_t*)stmt)->head == line_sym &&
+    if (jl_is_expr(stmt) && ((jl_expr_t*)stmt)->head == line_sym &&
              jl_array_dim0(((jl_expr_t*)stmt)->args) > 0) {
         jl_value_t *a1 = jl_exprarg(stmt,0);
         if (jl_is_long(a1))
@@ -4539,16 +4531,6 @@ static Function *emit_function(jl_lambda_info_t *lam)
     int prevlno = -1;
     for(i=0; i < stmtslen; i++) {
         jl_value_t *stmt = jl_cellref(stmts,i);
-        /*
-        if (jl_is_linenode(stmt)) {
-            lno = jl_linenode_line(stmt);
-            if (ctx.debug_enabled)
-                builder.SetCurrentDebugLocation(DebugLoc::get(lno, 1, (MDNode*)SP, NULL));
-            if (do_coverage)
-                coverageVisitLine(filename, lno);
-            ctx.lineno = lno;
-        }
-        */
         if (jl_is_expr(stmt) && ((jl_expr_t*)stmt)->head == line_sym) {
             // get the file and line number associated with this :line
             lno = jl_unbox_long(jl_exprarg(stmt, 0));

@@ -326,10 +326,6 @@ static jl_value_t *scm_to_julia_(value_t e, int eo)
 
             e = cdr_(e);
             if (!eo) {
-                if (sym == line_sym && n==1) {
-                    return jl_new_struct(jl_linenumbernode_type,
-                                         scm_to_julia_(car_(e),0));
-                }
                 if (sym == label_sym) {
                     return jl_new_struct(jl_labelnode_type,
                                          scm_to_julia_(car_(e),0));
@@ -459,8 +455,6 @@ static value_t julia_to_scm_(jl_value_t *v)
         fl_free_gc_handles(1);
         return scmv;
     }
-    if (jl_typeis(v, jl_linenumbernode_type))
-        return julia_to_list2((jl_value_t*)line_sym, jl_fieldref(v,0));
     if (jl_typeis(v, jl_labelnode_type))
         return julia_to_list2((jl_value_t*)label_sym, jl_fieldref(v,0));
     if (jl_typeis(v, jl_gotonode_type))
