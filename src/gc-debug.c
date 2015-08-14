@@ -340,6 +340,8 @@ static inline void gc_debug_print()
 
 static void gc_scrub_range(char *stack_lo, char *stack_hi)
 {
+    size_t keep_alive_size = 0;
+    int keep_alive_count = 0;
     stack_lo = (char*)((uintptr_t)stack_lo & ~(uintptr_t)15);
     for (char **stack_p = (char**)stack_lo;
          stack_p > (char**)stack_hi;stack_p--) {
@@ -361,7 +363,11 @@ static void gc_scrub_range(char *stack_lo, char *stack_hi)
         //  bit patterns)
         *ages &= ~(1 << (obj_id % 8));
         memset(tag, 0xff, osize);
+        keep_alive_size += osize;
+        keep_alive_count++;
     }
+    jl_printf(JL_STDERR, "Keepalive: %d objects (%" PRIu64 " bytes) \n",
+              keep_alive_count, (int64_t)keep_alive_size);
 }
 
 static void gc_scrub(char *stack_hi)
