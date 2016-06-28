@@ -1730,13 +1730,13 @@ Statistics
 
    Compute the middle of an array, which consists in finding its extrema and then computing their mean.
 
-.. function:: median(v[, region])
+.. function:: median(v[, dims])
 
    .. Docstring generated from Julia source
 
-   Compute the median of whole array ``v``\ , or optionally along the dimensions in ``region``\ . For even number of elements no exact median element exists, so the result is equivalent to calculating mean of two median elements. ``NaN`` is returned if the data contains any ``NaN`` values. For applications requiring the handling of missing data, the ``DataArrays`` package is recommended.
+   Compute the median of whole array ``v``\ , or optionally along the dimensions in ``dims``\ . For even number of elements no exact median element exists, so the result is equivalent to calculating mean of two median elements. ``NaN`` is returned if the data contains any ``NaN`` values. For applications requiring the handling of missing data, the ``DataArrays`` package is recommended.
 
-.. function:: median!(v)
+.. function:: median!(v[, dims])
 
    .. Docstring generated from Julia source
 
@@ -2142,4 +2142,3 @@ some built-in integration support in Julia.
    These quadrature rules work best for smooth functions within each interval, so if your function has a known discontinuity or other singularity, it is best to subdivide your interval to put the singularity at an endpoint. For example, if ``f`` has a discontinuity at ``x=0.7`` and you want to integrate from 0 to 1, you should use ``quadgk(f, 0,0.7,1)`` to subdivide the interval at the point of discontinuity. The integrand is never evaluated exactly at the endpoints of the intervals, so it is possible to integrate functions that diverge at the endpoints as long as the singularity is integrable (for example, a ``log(x)`` or ``1/sqrt(x)`` singularity).
 
    For real-valued endpoints, the starting and/or ending points may be infinite. (A coordinate transformation is performed internally to map the infinite interval to a finite one.)
-

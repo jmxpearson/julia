@@ -34,6 +34,8 @@ end
 
 @test all(median([2 3 1 -1; 7 4 5 -4], 2) .== [1.5, 4.5])
 @test all(median([2 3 1 -1; 7 4 5 -4], 1) .== [4.5 3.5 3.0 -2.5])
+@test all(median!([2 3 1 -1; 7 4 5 -4], 2) .== [1.5, 4.5])
+@test all(median!([2 3 1 -1; 7 4 5 -4], 1) .== [4.5 3.5 3.0 -2.5])
 
 @test_throws ArgumentError median([])
 @test isnan(median([NaN]))
